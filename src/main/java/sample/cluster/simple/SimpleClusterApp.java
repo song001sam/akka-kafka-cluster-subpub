@@ -3,7 +3,6 @@ package sample.cluster.simple;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.testkit.javadsl.TestKit;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import sample.cluster.akka.DeviceGroup;
@@ -18,7 +17,7 @@ public class SimpleClusterApp {
         else startup(args);
     }
 
-    public static void startup(String[] ports) {
+    private static void startup(String[] ports) {
         Config config =
                 ConfigFactory.parseString("akka.remote.artery.canonical.port=" + ports[0])
                         .withFallback(ConfigFactory.load());
