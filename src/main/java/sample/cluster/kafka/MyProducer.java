@@ -31,7 +31,9 @@ public class MyProducer extends AbstractActor {
     public void mostOnce() {
         try {
             while (flag) {
-                ProducerRecord<String, String> record = new ProducerRecord<>("test", Integer.toString(new Random().nextInt()), getContext().system().settings().config().getString("akka.remote.artery.canonical.port"));
+                ProducerRecord<String, String> record = new ProducerRecord<>("test2", Integer.toString(new Random().nextInt()), Integer.toString(new Random().nextInt()));
+                producer.send(record);
+                record = new ProducerRecord<>("test1", Integer.toString(new Random().nextInt()), Integer.toString(new Random().nextInt()));
                 producer.send(record);
                 Thread.sleep(1000);
             }
