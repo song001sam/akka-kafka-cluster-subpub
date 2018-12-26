@@ -9,4 +9,8 @@ akka-kafka-cluster-subpub简介
 使用sbt run执行，命令行可以看到不同topic数据由不同集群的actor进行消费
 
 # TODO
-使用device进行异常处理，监管/watch机制使用，测试并发情况等等
+增加topic分组，区分不同分组处理方式，配置类名（全名），生成对应actor（考虑使用group或者pool）  
+用system启动group与pool，发送消息
+  
+HBase解析数据，通过配置文件插入Hbase，使用API
+通过Bean获取websocket，写入websocket
