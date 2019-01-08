@@ -10,4 +10,5 @@ public class L1Actor extends AbstractLoggingActor {
                 ImmutablePair.class, x -> log().info("this is L1,topic is {},value is {}", x.left, x.right)
         ).matchAny(x -> log().info("unknowMessage")).build();
     }
+
 }

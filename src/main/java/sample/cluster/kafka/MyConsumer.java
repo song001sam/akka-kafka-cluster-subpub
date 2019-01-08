@@ -32,10 +32,11 @@ public class MyConsumer extends AbstractActor {
     LoggingAdapter log = Logging.getLogger(getContext().system(), this);
     ActorRef mediator = DistributedPubSub.get(getContext().system()).mediator();
     String[] topics;
+    Properties props;
     boolean flag = true;
     @Override
     public void preStart() {
-        Properties props = new Properties();
+        props = new Properties();
         try {
             props.load(MyConsumer.class.getClassLoader().getResourceAsStream("topic.properties"));
         } catch (IOException e) {
@@ -48,7 +49,7 @@ public class MyConsumer extends AbstractActor {
         try {
             consumer.subscribe(Arrays.asList(topics));
             while (flag) {
-                consumer.poll(Duration.ofSeconds(1)).forEach(x -> {
+                consumer.poll(Duration.ofSeconds(Integer.valueOf(props.getProperty("pool.time")))).forEach(x -> {
                     mediator.tell(new DistributedPubSubMediator.Publish("kafka", new ImmutablePair<>(x.topic(), x.value()), true), getSelf());
                 });
             }

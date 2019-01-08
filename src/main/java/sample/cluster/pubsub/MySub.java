@@ -22,6 +22,7 @@ public class MySub extends AbstractActor {
         // subscribe to the topic named "kafka"
         mediator.tell(new DistributedPubSubMediator.Subscribe("kafka", "groupId", getSelf()), getSelf());
     }
+
     public static Props props() {
         return Props.create(MySub.class, MySub::new);
     }

@@ -15,6 +15,8 @@ import akka.routing.ConsistentHashingRouter;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import sample.cluster.akka.ErrorActor;
+import sample.cluster.akka.ErrorExceprion;
 import sample.cluster.kafka.MyConsumer;
 import sample.cluster.kafka.MyProducer;
 import sample.cluster.pubsub.MySub;
@@ -55,6 +57,9 @@ public class Launcher {
             }
 
         }
-        systemMap.get("2551").actorOf(Props.create(MyProducer.class), "MyProducer").tell(new MyProducer.StartProduce(), ActorRef.noSender());
+        ActorRef a = systemMap.get("2551").actorOf(Props.create(MyProducer.class), "MyProducer");
+        a.tell(new MyProducer.StartProduce(), ActorRef.noSender());
+//        ErrorExceprion e = new ErrorExceprion("object","some error",new NullPointerException(),new Date(),a);
+//        systemMap.get("2551").actorOf(Props.create(ErrorActor.class), "errorActor").tell(e,a);
     }
 }
